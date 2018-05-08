@@ -2,6 +2,8 @@ import hashlib
 import json
 from time import time
 
+from uuid import uuid4
+
 class Blockchain(object):
 	def __init__(self):
 			#constructor class variables
@@ -65,3 +67,29 @@ class Blockchain(object):
 	@property
 	def last_block(self):
 		return self.block_chain[-1]
+
+
+	################################################################
+	######################## Proofs ################################
+	################################################################
+
+	def find_proof(self, last_proof):
+		#proof found when hash of previous proof and proposed proof 
+		#starts with 4 leading 0's
+
+		#last_proof <int> - last block proof
+
+		proof = 0
+		while !check_proof(last_proof, proof):
+			proof += 1
+
+		return proof
+
+	def check_proof(last_proof, proof):
+		#last_proof <int> - last block proof
+		#proof 		<int> - proposed proof
+
+		guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
+
